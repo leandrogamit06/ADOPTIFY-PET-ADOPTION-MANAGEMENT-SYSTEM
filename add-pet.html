@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Pet</title>
+  <link rel="stylesheet" href="css/add-pet.css">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<header>
+  <table width="100%">
+    <tr>
+      <td align="left">
+        <a href="adopt-now.html" id="backBtn">← Back</a>
+      </td>
+      <td align="right">
+        <img src="images/logo.png" id="logo">
+      </td>
+    </tr>
+  </table>
+</header>
+
+<h2>Add a Pet</h2>
+
+<form id="addPetForm">
+
+  <label>Pet Name</label>
+  <input type="text" id="petName" required><br>
+
+  <label>Pet Type</label>
+  <select id="petType" required>
+    <option value="">Select type</option>
+    <option value="Dog">Dog</option>
+    <option value="Cat">Cat</option>
+    <option value="Hamster">Hamster</option>
+    <option value="Bird">Bird</option>
+    <option value="Fish">Fish</option>
+  </select><br>
+
+  <label>Age</label>
+  <input type="number" id="petAge" required><br>
+
+  <label>Breed</label>
+  <input type="text" id="petBreed" required><br>
+
+  <label>Bio / About the Pet</label>
+  <textarea id="petBio" required></textarea><br>
+
+  <!-- DRAG AND DROP ZONE -->
+  <label id="dropzone">
+    Drag & Drop Image Here<br>or click to browse
+    <input type="file" id="petImageFile" accept="image/*" hidden>
+  </label><br><br>
+
+  <!-- PREVIEW -->
+  <img id="preview" style="display:none; width:200px; border-radius:10px;"><br>
+
+  <input type="hidden" id="ownerEmail">
+  <input type="hidden" id="petImage">
+
+  <button type="submit">Add Pet</button>
+</form>
+
+<script src="js/add-pet.js"></script>
+
+</body>
+</html>
