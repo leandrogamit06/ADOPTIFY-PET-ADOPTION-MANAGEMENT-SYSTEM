@@ -1,0 +1,263 @@
+/* Reset & base */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --green:#0b6b2a;
+  --light-green:#2e8b57;
+  --muted:#f6f6f6;
+  --card:#ffffff;
+}
+body {
+  font-family: "Segoe UI", system-ui, -apple-system, "Times New Roman", Georgia, serif;
+  background: #e9efe8;
+  color: #111;
+  min-height: 100vh;
+}
+
+/* Top header */
+.top-header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(180deg,var(--green), #07451a 120%);
+  color: white;
+  padding: 12px 20px;
+  gap: 12px;
+  z-index: 50;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+.brand { display: flex; align-items: center; gap: 12px; }
+.logo { width: 44px; height: 44px; object-fit: cover; border-radius: 8px; background: white; padding: 6px; }
+.top-header h1 { font-size: 20px; letter-spacing: 1px; }
+
+/* Search area */
+.search-area { display: flex; align-items: center; gap: 6px; flex: 1; max-width: 720px; margin: 0 10px; }
+.search-area input { width: 100%; padding: 10px 12px; border-radius: 8px; border: none; font-size: 14px; }
+#clearSearch { background: transparent; color: white; border: 0; font-size: 14px; cursor: pointer; }
+
+/* nav actions */
+.nav-actions { display: flex; align-items: center; gap: 10px; }
+.btn { 
+  padding: 8px 12px; 
+  border-radius: 6px; 
+  background: white; 
+  color: #111; 
+  text-decoration: none; 
+  display: inline-block; 
+  border: 2px solid rgba(0,0,0,0.08); 
+  font-weight: 600; 
+  transition: all 0.3s ease; 
+  cursor: pointer;
+}
+.btn.small { padding: 6px 10px; font-size: 15px; border-radius: 25px; }
+.btn.primary { background: var(--light-green); color: white; border: none; }
+
+/* 🟩 Reactive Apply Filter + Reset Buttons */
+.btn.green {
+  background: var(--light-green);
+  color: white;
+  border: 2px solid var(--light-green);
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+.btn.green:hover {
+  background: white;
+  color: var(--light-green);
+  border-color: var(--light-green);
+  transform: translateY(-2px);
+}
+.btn.full {
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+}
+.btn:hover { background: var(--light-green); color: white; }
+.profile-wrap { display: flex; align-items: center; gap: 8px; color: white; }
+
+/* layout grid */
+.page-grid {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 20px;
+  padding: 20px;
+  margin-top: 12px;
+}
+
+/* sidebar */
+.sidebar {
+  padding: 10px;
+  position: relative;
+}
+.paw-decor { font-size: 40px; color: var(--green); margin: 8px 0 18px 8px; transform: rotate(-10deg); opacity: 0.9; }
+.filter-card {
+  background: white;
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+.filter-card h3 { margin-bottom: 10px; color: var(--green); }
+.filter-card label { display: block; margin-top: 10px; font-size: 13px; color: #333; margin-bottom: 6px; }
+.filter-card select, .filter-card input[type="number"] {
+  width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid #ddd;
+}
+.radio-row { display: flex; gap: 8px; }
+
+/* content */
+.content { padding: 10px 20px; }
+.content h2 { color: #123b1f; margin-bottom: 4px; }
+.subtitle { color: #444; margin-bottom: 12px; }
+
+/* PETS GRID */
+.pets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(240px,1fr));
+  gap: 16px;
+  max-height: 70vh;
+  overflow-y: auto;
+  padding-right: 10px;
+  scroll-behavior: smooth;
+}
+.pets-grid::-webkit-scrollbar { width: 8px; }
+.pets-grid::-webkit-scrollbar-thumb { background-color: #2e8b57; border-radius: 10px; }
+
+/* PET CARD */
+.pet-card {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, border 0.25s ease;
+  border: 2px solid transparent;
+}
+.pet-media { height: 150px; background-size: cover; background-position: center; }
+.pet-body { padding: 12px; }
+.pet-body h4 { color: var(--green); margin-bottom: 4px; }
+.pet-meta { font-size: 13px; color: #666; margin-bottom: 6px; }
+.pet-bio { font-size: 13px; color: #333; margin-bottom: 10px; }
+
+/* “View Details” Button */
+.view-btn {
+  display: inline-block;
+  padding: 6px 10px;
+  font-size: 14px;
+  border-radius: 20px;
+  border: 2px solid var(--light-green);
+  background: white;
+  color: black;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+.view-btn:hover {
+  background: var(--light-green);
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* FOOTER */
+.page-footer { text-align: center; padding: 12px 20px; color: #666; }
+
+/* responsive */
+@media (max-width:900px){
+  .page-grid { grid-template-columns:1fr; padding:12px; }
+  .sidebar { order:2; }
+  .logo { display:none; }
+}
+
+/* === MODAL STYLES === */
+.modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  z-index: 100;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+.modal.hidden { display: none; }
+
+.modal-card {
+  background: #fff;
+  color: #111;
+  border-radius: 12px;
+  max-width: 450px;
+  width: 90%;
+  padding: 25px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  position: relative;
+  text-align: center;
+  animation: fadeIn 0.3s ease-out;
+}
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+}
+.info-image {
+  width: 100%;
+  max-height: 260px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+.bio-text {
+  background: #f4f4f4;
+  padding: 10px;
+  border-radius: 6px;
+  font-style: italic;
+}
+
+/* === FADE ANIMATIONS === */
+.modal.fade-out {
+  animation: fadeOut 0.25s ease-out forwards;
+}
+@keyframes fadeOut {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.95); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* ----------------------------------------
+   SOCIAL ICON HOVER ANIMATION
+----------------------------------------- */
+.social-follow img {
+  transition: transform 0.25s ease, filter 0.25s ease;
+  cursor: pointer;
+}
+.social-follow img:hover {
+  transform: scale(1.2);
+  filter: brightness(1.25);
+}
+
+/* ----------------------------------------
+   PET CARD HOVER ANIMATION (GREEN HOVER)
+----------------------------------------- */
+.pet-card:hover {
+  transform: translateY(-6px);
+  background-color: var(--green);
+  border-color: var(--green);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* make all text white on card hover */
+.pet-card:hover * {
+  color: white !important;
+}
+
+/* EXCEPTION: Keep View Details button visible */
+.pet-card:hover .view-btn {
+  background: white !important;
+  color: black !important;
+  border-color: white !important;
+}

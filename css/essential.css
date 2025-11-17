@@ -1,0 +1,141 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "Times New Roman", Georgia, serif;
+  color: white;
+  background: url('../images/essential 1.png') center/cover no-repeat;
+  overflow-x: hidden;
+}
+
+/* ===== Header ===== */
+header {
+  background-color: #0b4d02;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 60px;
+}
+
+section.branding {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+section.branding img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: white;
+  padding: 6px;
+}
+
+section.branding h1 {
+  font-size: 35px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+nav.top {
+  display: flex;
+  gap: 10px;
+}
+
+nav.top a {
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 25px;
+  padding: 8px 26px;
+  transition: 0.3s ease;
+}
+
+.btn-outline {
+  background: white;
+  color: black;
+  border: 2px solid #000;
+}
+
+.btn-outline:hover { background: #eee; }
+
+.btn-primary {
+  background: #2a7ae6;
+  color: white;
+}
+
+.btn-primary:hover { background: #1b5cbf; }
+
+/* ===== Main Section ===== */
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 80px;
+  text-align: left;
+  position: relative;
+  min-height: 100vh;
+}
+
+article.content {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 50px;
+  border-radius: 15px;
+  max-width: 900px;
+  color: white;
+  font-size: 18px;
+  line-height: 1.7;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+article.content h2 {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 20px;
+  color: #fff;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.8);
+}
+
+article.content p {
+  text-indent: 30px;
+  margin-bottom: 10px;
+}
+
+/* ===== Buttons ===== */
+nav.bottom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+}
+
+nav.bottom a {
+  text-decoration: none;
+  padding: 10px 40px;
+  border-radius: 25px;
+  font-weight: bold;
+  border: 2px solid #000;
+  color: #000;
+  background: white;
+  transition: 0.3s;
+}
+
+nav.bottom a:hover {
+  background: #eee;
+  transform: translateY(-2px);
+}
+
+/* ===== Animal Images ===== */
+img.animal {
+  position: absolute;
+  bottom: 30px;
+}
+
+img.left {
+  left: 40px;
+  width: 180px;
+}
+
+img.right {
+  right: 40px;
+  width: 250px;
+}
