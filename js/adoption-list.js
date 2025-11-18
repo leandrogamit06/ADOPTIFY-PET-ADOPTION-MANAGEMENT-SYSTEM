@@ -11,7 +11,7 @@
 
   const $ = id => document.getElementById(id);
 
-  // ⭐ LOAD THIS USER'S ADOPTION LIST ONLY
+  // ⭐ READ USER-SPECIFIC ADOPTION LIST
   const key = `${currentUser.email}_adoption`;
   let pets = JSON.parse(localStorage.getItem(key) || "[]");
 
@@ -45,26 +45,32 @@
     });
   }
 
-  // ⭐ DELETE SELECTED PETS
+  // DELETE PETS
   $("btnDelete").addEventListener("click", () => {
     const checks = document.querySelectorAll(".pet-check:checked");
-    if (checks.length === 0) return alert("Please select at least one pet.");
+    if (checks.length === 0) {
+      alert("Please select at least one pet.");
+      return;
+    }
 
     pets = pets.filter(p => !Array.from(checks).some(c => c.dataset.id === p.id));
     localStorage.setItem(key, JSON.stringify(pets));
     renderTable();
   });
 
-  // ⭐ OPEN BOOKING MODAL
+  // BOOK MEETUP
   $("btnBookMeetup").addEventListener("click", () => {
     const selected = document.querySelector(".pet-check:checked");
-    if (!selected) return alert("Please select a pet.");
+    if (!selected) {
+      alert("Please select a pet to book.");
+      return;
+    }
 
     const pet = pets.find(p => p.id === selected.dataset.id);
     if (!pet) return;
 
     $("bookPetName").textContent = pet.name;
-    $("bookForm").setAttribute("data-id", pet.id);
+    $("bookForm").dataset.id = pet.id;
     $("bookModal").classList.remove("hidden");
   });
 
@@ -72,33 +78,34 @@
     $("bookModal").classList.add("hidden");
   });
 
-  // ⭐ BOOK MEETUP (make row green)
+  // CONFIRM BOOKING
   $("bookForm").addEventListener("submit", e => {
     e.preventDefault();
 
-    const id = $("bookForm").getAttribute("data-id");
+    const id = $("bookForm").dataset.id;
     let pet = pets.find(p => p.id == id);
     if (!pet) return;
 
     pet.status = "Booked";
     localStorage.setItem(key, JSON.stringify(pets));
 
+    alert("💚 Meetup booked successfully!");
     $("bookModal").classList.add("hidden");
-    alert("💚 Your meetup request has been sent!");
-
     renderTable();
   });
 
-  // ⭐ CANCEL BOOKING
+  // CANCEL BOOKING
   $("btnCancelMeetup").addEventListener("click", () => {
     const selected = document.querySelector(".pet-check:checked");
-    if (!selected) return alert("Select a booked pet.");
+    if (!selected) {
+      alert("Select a booked pet to cancel.");
+      return;
+    }
 
     const pet = pets.find(p => p.id === selected.dataset.id);
-    if (!pet) return;
-
-    if (pet.status !== "Booked") {
-      return alert("This pet is not booked.");
+    if (!pet || pet.status !== "Booked") {
+      alert("This pet is not booked.");
+      return;
     }
 
     pet.status = "Added";
