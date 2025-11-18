@@ -88,6 +88,7 @@ document.body.insertAdjacentHTML("beforeend", `
         <select id="editStatus">
             <option value="Available">Available</option>
             <option value="Pending Adoption">Pending Adoption</option>
+         
         </select>
 
         <div class="modal-actions">
@@ -159,3 +160,4 @@ function saveEdit() {
 function closeEditModal() {
     editModal.style.display = "none";
 }
+
