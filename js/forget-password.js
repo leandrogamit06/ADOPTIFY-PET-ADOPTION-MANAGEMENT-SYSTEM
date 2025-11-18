@@ -1,8 +1,6 @@
 const $ = id => document.getElementById(id);
 
-/* ======================================================
-   STEP 1: CHECK IF EMAIL EXISTS IN "users" ARRAY
-   ====================================================== */
+// STEP 1 – CHECK EMAIL
 $("fp_checkEmail").addEventListener("click", () => {
     const email = $("fp_email").value.trim().toLowerCase();
 
@@ -11,10 +9,10 @@ $("fp_checkEmail").addEventListener("click", () => {
         return;
     }
 
-    // Load users array
+    // Load users from the global "users" array
     let users = JSON.parse(localStorage.getItem("users") || "[]");
 
-    // Find user by email
+    // Search inside users array
     const user = users.find(u => u.email.toLowerCase() === email);
 
     if (!user) {
@@ -22,18 +20,16 @@ $("fp_checkEmail").addEventListener("click", () => {
         return;
     }
 
-    // Store target email
+    // Store email temporarily
     localStorage.setItem("fp_target_email", email);
 
-    // Move to next step
+    // Switch steps
     $("stepEmail").classList.add("hidden");
     $("stepReset").classList.remove("hidden");
 });
 
 
-/* ======================================================
-   STEP 2: RESET PASSWORD IN "users" ARRAY
-   ====================================================== */
+// STEP 2 – RESET PASSWORD
 $("fp_resetBtn").addEventListener("click", () => {
     const newPass = $("fp_newPass").value;
     const confirmPass = $("fp_confirmPass").value;
@@ -49,29 +45,27 @@ $("fp_resetBtn").addEventListener("click", () => {
     }
 
     const email = localStorage.getItem("fp_target_email");
-    if (!email) {
-        $("fp_resetMessage").textContent = "System error. Try again.";
-        return;
-    }
 
-    // Load users
+    // Load users list
     let users = JSON.parse(localStorage.getItem("users") || "[]");
 
-    // Find and update
-    const idx = users.findIndex(u => u.email.toLowerCase() === email);
-    if (idx === -1) {
-        $("fp_resetMessage").textContent = "User not found.";
+    // Find the correct user
+    const index = users.findIndex(u => u.email.toLowerCase() === email);
+
+    if (index === -1) {
+        $("fp_resetMessage").textContent = "Error: User not found.";
         return;
     }
 
-    users[idx].password = newPass;
+    // Update password
+    users[index].password = newPass;
 
     // Save back
     localStorage.setItem("users", JSON.stringify(users));
 
-    // Clear temp
+    // Clear temp storage
     localStorage.removeItem("fp_target_email");
 
-    alert("✅ Password reset successfully! Please log in.");
+    alert("✅ Password updated! Please login again.");
     window.location.href = "login.html";
 });
