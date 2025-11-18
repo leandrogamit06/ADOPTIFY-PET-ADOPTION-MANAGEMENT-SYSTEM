@@ -1,6 +1,6 @@
 (function() {
 
-  // Login check
+  // LOGIN CHECK
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   if (!currentUser) {
     alert("⚠️ You need to be logged in to view your adoption list.");
@@ -11,7 +11,7 @@
 
   const $ = id => document.getElementById(id);
 
-  // ⭐ Load adoption list for this user ONLY
+  // ⭐ LOAD THIS USER'S ADOPTION LIST ONLY
   const key = `${currentUser.email}_adoption`;
   let pets = JSON.parse(localStorage.getItem(key) || "[]");
 
@@ -45,7 +45,7 @@
     });
   }
 
-  // Delete
+  // ⭐ DELETE SELECTED PETS
   $("btnDelete").addEventListener("click", () => {
     const checks = document.querySelectorAll(".pet-check:checked");
     if (checks.length === 0) return alert("Please select at least one pet.");
@@ -55,7 +55,7 @@
     renderTable();
   });
 
-  // Book
+  // ⭐ OPEN BOOKING MODAL
   $("btnBookMeetup").addEventListener("click", () => {
     const selected = document.querySelector(".pet-check:checked");
     if (!selected) return alert("Please select a pet.");
@@ -72,6 +72,7 @@
     $("bookModal").classList.add("hidden");
   });
 
+  // ⭐ BOOK MEETUP (make row green)
   $("bookForm").addEventListener("submit", e => {
     e.preventDefault();
 
@@ -84,10 +85,11 @@
 
     $("bookModal").classList.add("hidden");
     alert("💚 Your meetup request has been sent!");
+
     renderTable();
   });
 
-  // Cancel booking
+  // ⭐ CANCEL BOOKING
   $("btnCancelMeetup").addEventListener("click", () => {
     const selected = document.querySelector(".pet-check:checked");
     if (!selected) return alert("Select a booked pet.");
