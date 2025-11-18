@@ -9,10 +9,13 @@ $("fp_checkEmail").addEventListener("click", () => {
         return;
     }
 
-    // Look for: user_email
-    const userData = localStorage.getItem("user_" + email);
+    // Load all users
+    let users = JSON.parse(localStorage.getItem("users") || "[]");
 
-    if (!userData) {
+    // Find user with matching email
+    let user = users.find(u => u.email.toLowerCase() === email);
+
+    if (!user) {
         $("fp_message").textContent = "Email not found.";
         return;
     }
@@ -21,7 +24,7 @@ $("fp_checkEmail").addEventListener("click", () => {
     $("stepEmail").classList.add("hidden");
     $("stepReset").classList.remove("hidden");
 
-    // store email temporarily
+    // Store the email temporarily
     localStorage.setItem("fp_target_email", email);
 });
 
@@ -43,19 +46,25 @@ $("fp_resetBtn").addEventListener("click", () => {
 
     const email = localStorage.getItem("fp_target_email");
 
-    // Load user
-    let user = JSON.parse(localStorage.getItem("user_" + email));
+    let users = JSON.parse(localStorage.getItem("users") || "[]");
+
+    // Find user
+    let userIndex = users.findIndex(u => u.email.toLowerCase() === email);
+
+    if (userIndex === -1) {
+        $("fp_resetMessage").textContent = "Unexpected error. User not found.";
+        return;
+    }
 
     // Update password
-    user.password = newPass;
+    users[userIndex].password = newPass;
 
-    // Save back
-    localStorage.setItem("user_" + email, JSON.stringify(user));
+    // Save users back to storage
+    localStorage.setItem("users", JSON.stringify(users));
 
-    // Cleanup email memory
+    // Cleanup
     localStorage.removeItem("fp_target_email");
 
-    // Success message
     alert("✅ Password reset successfully! Please login again.");
     window.location.href = "login.html";
 });
