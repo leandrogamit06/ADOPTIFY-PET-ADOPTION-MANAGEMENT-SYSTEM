@@ -1,35 +1,39 @@
 const $ = id => document.getElementById(id);
 
-// STEP 1 – CHECK EMAIL
+/* ======================================================
+   STEP 1 – CHECK IF EMAIL EXISTS
+   ====================================================== */
 $("fp_checkEmail").addEventListener("click", () => {
-    const email = $("fp_email").value.trim().toLowerCase();
+    let email = $("fp_email").value.trim().toLowerCase();
 
     if (email === "") {
         $("fp_message").textContent = "Please enter your email.";
         return;
     }
 
-    // Load all users
-    let users = JSON.parse(localStorage.getItem("users") || "[]");
+    // Normalize key EXACTLY how register saves it:
+    const key = "user_" + email.replace(/\s+/g, "");
 
-    // Find user with matching email
-    let user = users.find(u => u.email.toLowerCase() === email);
+    const userData = localStorage.getItem(key);
 
-    if (!user) {
+    if (!userData) {
         $("fp_message").textContent = "Email not found.";
         return;
     }
 
-    // Email exists → Move to next step
+    // Email exists → move to reset password step
     $("stepEmail").classList.add("hidden");
     $("stepReset").classList.remove("hidden");
 
-    // Store the email temporarily
+    // Store email for step 2
     localStorage.setItem("fp_target_email", email);
+    $("fp_message").textContent = ""; // clear error
 });
 
 
-// STEP 2 – RESET PASSWORD
+/* ======================================================
+   STEP 2 – RESET PASSWORD
+   ====================================================== */
 $("fp_resetBtn").addEventListener("click", () => {
     const newPass = $("fp_newPass").value;
     const confirmPass = $("fp_confirmPass").value;
@@ -44,25 +48,30 @@ $("fp_resetBtn").addEventListener("click", () => {
         return;
     }
 
+    // Retrieve the email stored during step 1
     const email = localStorage.getItem("fp_target_email");
 
-    let users = JSON.parse(localStorage.getItem("users") || "[]");
-
-    // Find user
-    let userIndex = users.findIndex(u => u.email.toLowerCase() === email);
-
-    if (userIndex === -1) {
-        $("fp_resetMessage").textContent = "Unexpected error. User not found.";
+    if (!email) {
+        $("fp_resetMessage").textContent = "System error. Please restart.";
         return;
     }
 
-    // Update password
-    users[userIndex].password = newPass;
+    const key = "user_" + email.replace(/\s+/g, "");
 
-    // Save users back to storage
-    localStorage.setItem("users", JSON.stringify(users));
+    // Load stored user
+    let user = JSON.parse(localStorage.getItem(key));
+    if (!user) {
+        $("fp_resetMessage").textContent = "User not found.";
+        return;
+    }
 
-    // Cleanup
+    // Update the password
+    user.password = newPass;
+
+    // Save updated info back to storage
+    localStorage.setItem(key, JSON.stringify(user));
+
+    // Remove temp memory
     localStorage.removeItem("fp_target_email");
 
     alert("✅ Password reset successfully! Please login again.");
